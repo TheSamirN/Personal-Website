@@ -1,4 +1,4 @@
-# Samir Nazim — Portfolio
+# Samir N — Portfolio
 
 A personal portfolio website built with React, Vite, and Tailwind CSS.
 
