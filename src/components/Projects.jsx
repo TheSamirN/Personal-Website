@@ -1,17 +1,27 @@
 const projects = [
   {
+    category: 'AI Agent',
+    title: 'Memex',
+    description: 'An AI meeting agent that joins your Microsoft Teams calls live, transcribes conversations, searches vector memory, and handles tasks autonomously.',
+    image: '/memex-icon.svg',
+    reversed: false,
+    link: '/Memex/',
+    external: true,
+    noGrayscale: true,
+  },
+  {
     category: 'Fintech Solutions',
     title: 'Vanguard Finance',
     description: 'A complete overhaul of the digital banking experience focusing on real-time data visualization and secure cross-border transactions.',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0PP1zLvfPDG2uHocLj17_ySkw0ByQhXYoiNhMDdHYO5GQd0PHRNKdpmuS0cQrTUubw35IWdc1AtNJfq5fZ9pKxAG9Aqn-_-31EwCyRpWCiADttDavJmTfrxFJaYzJikuMYFIH5p73tnf_3qNk3AY5Gl_Lg27ORNZQ_Q9MhyXZAG4WM4HY3SlohvVtgPp_tphhXv4f8a98M9rBLOEijLwMdzzBAi9Er2Y3NATXRP77OTf2S9WxInFcXr088AL8hGmd7M0TROuvlYc',
-    reversed: false,
+    reversed: true,
   },
   {
     category: 'E-Commerce',
     title: 'Noir Atelier',
     description: 'A minimalist boutique shopping platform built with Next.js and Shopify Hydrogen, featuring a headless architecture.',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAriUkQoNJRJ02jjy0rLpXW4qpHUzsrZwYsmaI57KpYK32Uj2f7ktv8p-85tIu8dkxfcBFQ0zCvdfKngw7SgOswo9TbkKozkCOxtO-jJuJaePSMggB04gXwAAQcMfuzQxsBl3ifDlLO9eRNYTCEj4cGKkpCKPU7ryONf_FoJ1rdQJRTD4x5AVbl4pMus8iIEzam6wKKT9fbOhc7UV9lk9Q32wQmSSafsk-T4-1o3ZMxMrJuIJlmpyt9fYw1kv5TvFcW2Fd9K2exysk',
-    reversed: true,
+    reversed: false,
   },
 ]
 
@@ -23,7 +33,9 @@ function ArrowIcon({ className }) {
   )
 }
 
-function DesktopProject({ category, title, description, image, reversed }) {
+function DesktopProject({ category, title, description, image, reversed, link, external, noGrayscale }) {
+  const linkProps = external ? { href: link || '#', target: '_blank', rel: 'noopener noreferrer' } : { href: link || '#' }
+  const imgClass = `w-full aspect-video object-cover transition-all duration-700${noGrayscale ? '' : ' grayscale hover:grayscale-0'}`
   return (
     <div className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24 last:mb-0 items-center overflow-hidden">
       {reversed ? (
@@ -33,14 +45,14 @@ function DesktopProject({ category, title, description, image, reversed }) {
             <h3 className="text-4xl font-serif mb-6 group-hover:translate-x-4 transition-transform duration-500">{title}</h3>
             <div className="h-[1px] bg-border w-full mb-6"></div>
             <p className="text-muted-foreground mb-8 leading-relaxed">{description}</p>
-            <a className="inline-flex items-center space-x-4 group/btn font-mono text-[10px] uppercase tracking-widest" href="#">
+            <a className="inline-flex items-center space-x-4 group/btn font-mono text-[10px] uppercase tracking-widest" {...linkProps}>
               <ArrowIcon className="rotate-180 transition-transform duration-300 group-hover/btn:-translate-x-2" />
-              <span>View Case Study</span>
+              <span>Learn More</span>
             </a>
           </div>
           <div className="lg:col-span-7 lg:order-2 order-1 overflow-hidden relative flex items-center justify-center">
             <div className="w-[60%] transition-transform duration-700 ease-[var(--ease-expo-out)] group-hover:scale-105">
-              <img alt={title} className="w-full aspect-video object-cover grayscale hover:grayscale-0 transition-all duration-700" src={image} />
+              <img alt={title} className={imgClass} src={image} />
             </div>
           </div>
         </>
@@ -48,7 +60,7 @@ function DesktopProject({ category, title, description, image, reversed }) {
         <>
           <div className="lg:col-span-7 overflow-hidden relative flex items-center justify-center">
             <div className="w-[60%] transition-transform duration-700 ease-[var(--ease-expo-out)] group-hover:scale-105 relative">
-              <img alt={title} className="w-full aspect-video object-cover grayscale hover:grayscale-0 transition-all duration-700" src={image} />
+              <img alt={title} className={imgClass} src={image} />
               <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
           </div>
@@ -57,8 +69,8 @@ function DesktopProject({ category, title, description, image, reversed }) {
             <h3 className="text-4xl font-serif mb-6 group-hover:translate-x-4 transition-transform duration-500">{title}</h3>
             <div className="h-[1px] bg-border w-full mb-6"></div>
             <p className="text-muted-foreground mb-8 leading-relaxed">{description}</p>
-            <a className="inline-flex items-center space-x-4 group/btn font-mono text-[10px] uppercase tracking-widest" href="#">
-              <span>View Case Study</span>
+            <a className="inline-flex items-center space-x-4 group/btn font-mono text-[10px] uppercase tracking-widest" {...linkProps}>
+              <span>Learn More</span>
               <ArrowIcon className="transition-transform duration-300 group-hover/btn:translate-x-2" />
             </a>
           </div>
@@ -68,18 +80,19 @@ function DesktopProject({ category, title, description, image, reversed }) {
   )
 }
 
-function MobileProjectCard({ category, title, description, image }) {
+function MobileProjectCard({ category, title, description, image, link, external, noGrayscale }) {
+  const linkProps = { href: link || '#' }
   return (
     <div>
       <div className="relative overflow-hidden rounded-3xl bg-black h-[400px] group">
-        <img alt={title} className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:scale-110 transition-transform duration-1000" src={image} />
+        <img alt={title} className={`absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000${noGrayscale ? '' : ' grayscale'}`} src={image} />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
         <div className="absolute inset-0 z-10 p-8 flex flex-col justify-end text-white">
           <span className="font-mono text-[8px] tracking-[0.4em] uppercase opacity-70 mb-2">{category}</span>
           <h3 className="text-3xl font-serif mb-4">{title}</h3>
-          <p className="text-xs text-white/70 leading-relaxed line-clamp-2 mb-6">{description}</p>
+          <p className="text-xs text-white/70 leading-relaxed mb-6">{description}</p>
           <div className="flex justify-between items-center">
-            <a className="font-mono text-[8px] uppercase tracking-widest border border-white/30 px-4 py-2 rounded-full" href="#">Case Study</a>
+            <a className="font-mono text-[8px] uppercase tracking-widest border border-white/30 px-4 py-2 rounded-full" {...linkProps}>Learn More</a>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </div>
         </div>

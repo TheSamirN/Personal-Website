@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/Memex", "destination": "/Memex/index.html" },
+    { "source": "/Memex/", "destination": "/Memex/index.html" },
+    { "source": "/((?!Memex/).*)", "destination": "/index.html" }
+  ]
+}
